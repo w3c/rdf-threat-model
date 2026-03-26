@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+   width="3cm"
+   height="5cm"
+   viewBox="0 0 300 600"
+>
+ <circle
+    style="fill:transparent;stroke:black;stroke-width:5"
+    cy="125"
+    cx="150"
+    r="100" />
+ <path
+    style="fill:transparent;stroke:black;stroke-width:5"
+    d="m 50,325 a 100,100 0 0 1 100,-100 100,100 0 0 1 100,100" />
+ <path
+    style="fill:transparent;stroke:black;stroke-width:5"
+    d="M 50,325 V 475 h 200 l 0,-150"
+    id="path2" />
+</svg>

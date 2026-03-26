@@ -33,6 +33,18 @@
         See <a href="https://github.com/w3c/respec/wiki/User's-Guide">ReSpec's user guide</a>
         for how toget started!
       </p>
+
+      <figure>
+        <object data="diagrams/diagram1.svg" width="80%">
+          A diagram representing different actors using RDF.
+          A producer is producing RDF data that is sent via a channel, and stored in an RDF store.
+          A copy of that RDF data is received via the same channel, and inspected by a consumer.
+          Another consumer is using an application that is processing that copy of the RDF data.
+          A third consumer is querying an endpoint exposed by the RDF store.
+          A data architectu is producing a schema, which describes both the initial RDF data and its copy.
+        </object>
+        <figcaption>Different actors using RDF (<a href="diagrams/diagram1.svg">enlarge</a>)</figcaption>
+      </figure>
     </section>
   </body>
 </html>
