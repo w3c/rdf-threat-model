@@ -1,0 +1,55 @@
+digraph {
+    #beautify=true
+    K=2
+    smoothing="triangle"
+    levels=3
+
+    subgraph {
+        # persons
+        node [shape=none image="person.svg" imagescale=true labelloc="b"]
+        prod1 [label="producer"]
+        arch1 [label="data architect"]
+        cons1 [label="consumer"]
+        cons2 [label="consumer"]
+        cons3 [label="consumer"]
+    }
+
+    subgraph {
+        # files
+        node [shape="note" label="RDF data"]
+        data1
+        data2
+        sche1 [label="schema"]
+    }
+
+    subgraph {
+        # store
+        node [shape="cylinder" label="rdf store"]
+        stor1
+    }
+
+    subgraph {
+        # components
+        node [shape="component"]
+        chan1 [label="channel"]
+        appl1 [label="app"]
+        endp1 [label="endpoint"]
+    }
+
+    prod1 -> data1 [label="produces"]
+    data1 -> chan1 [label="sent via"]
+    data2 -> chan1 [label="received via"]
+    cons1 -> data2 [label="inspects"]
+    appl1 -> data2 [label="processes"]
+    cons2 -> appl1 [label="uses"]
+
+    data1 -> sche1 [label="described by"]
+    data2 -> sche1 [label="described by"]
+    arch1 -> sche1 [label="produces"]
+
+    data1 -> stor1 [label="stored in"]
+    stor1 -> endp1 [label="exposes"]
+    cons3 -> endp1 [label="queries"]
+
+    data2 -> data1 [label="copy of" style="dotted"]
+}
