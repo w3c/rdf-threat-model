@@ -24,7 +24,7 @@ digraph {
 
     subgraph {
         # store
-        node [shape="cylinder" label="rdf store"]
+        node [shape="cylinder" label="SPARQL store"]
         stor1
     }
 
@@ -37,7 +37,7 @@ digraph {
     }
 
     prod1 -> data1 [label="produces"]
-    data1 -> chan1 [label="sent via"]
+    data1 -> chan1 [label="shared via"]
     data2 -> chan1 [label="received via"]
     cons1 -> data2 [label="inspects"]
     appl1 -> data2 [label="processes"]
