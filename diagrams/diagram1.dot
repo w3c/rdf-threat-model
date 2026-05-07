@@ -1,17 +1,17 @@
 digraph {
     #beautify=true
-    K=2
+    K=3
     smoothing="triangle"
     levels=3
 
     subgraph {
         # persons
-        node [shape=none image="person.svg" imagescale=true labelloc="b"]
-        prod1 [label="producer"]
-        arch1 [label="data architect"]
-        cons1 [label="consumer"]
-        cons2 [label="consumer"]
-        cons3 [label="consumer"]
+        node [shape=none image="person.svg" imagescale=true labelloc="b" fontcolor=red]
+        prod1 [label="producer" fontcolor=red ]
+        arch1 [label="data architect" fontcolor=blue ]
+        cons1 [label="consumer" fontcolor=green]
+        cons2 [label="consumer" fontcolor=green]
+        cons3 [label="consumer" fontcolor=green]
     }
 
     subgraph {
