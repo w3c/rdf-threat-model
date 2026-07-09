@@ -1,0 +1,97 @@
+digraph {
+    layout=dot
+    rankdir=LR
+
+    subgraph cluster_c1 {
+        shape=tab
+        bgcolor="#79caf2"
+        label="C1 Data Provider"
+        labelloc=t
+
+        subgraph stores {
+          node [shape=none image="shapes/datastore.svg"]
+          s1 [label="  S1 Graph"]
+        }
+
+        subgraph processes {
+          node [shape=none image="shapes/process.svg"]
+          p1 [label="P1 Serialize"]  # except 4
+          p5 [label="P5 Query"]      # except 2 3
+          p6 [label="P6 Update"]     # except 2 3
+        }
+
+        s1 -> p1             # except 4
+        s1 -> p5             # except 2 3
+        s1 -> p6 [dir=both]  # except 2 3
+    }
+    subgraph cluster_c2 {
+        shape=tab
+        bgcolor="#79caf2"
+        label="C2 Application"
+        labelloc=t
+
+        subgraph stores {
+          node [shape=none image="shapes/datastore.svg"]
+          s2 [label="  S2 Graph"]  # except 4
+        }
+
+        subgraph processes {
+          node [shape=none image="shapes/process.svg"]
+          p2 [label="P2 Parse"]    # except 4
+          p3 [label="P3 Process"]
+          p8 [label="P8 Qry/Upd"]  # except 2 3 4
+        }
+
+        p2 -> s2                                       # except 4
+        s2 -> p3 [dir=both]                            # except 4
+        s2 -> p8 [dir=both]                            # except 2 3 4
+        p3 -> p8 [dir=both minlen=2 constraint=false]  # except 2 3 4
+        
+    }
+    p1 -> p2  # except 4
+
+    subgraph entities {
+        node[shape=rectangle style=filled fillcolor="#ffff98"]
+        e1[label="E1 Data Owner"]
+        e2[label="E2 End User"]
+        e3[label="E3 Developer"]   # except 3
+    }
+    p3 -> e2 [dir=both]
+    p1 -> e3             # except 3 4
+
+    subgraph processes {
+      node [shape=none image="shapes/process.svg"]
+      p7[label="P7 Client"]  # except 2 3
+    }
+    p5 -> p7 [dir=both]  # except 2 3
+    p6 -> p7 [dir=both]  # except 2 3
+    p7 -> p3 [dir=both]  # except 2 3
+    p7 -> e3 [dir=both]  # except 2 3
+
+    subgraph dataobjects {
+        node[shape=ellipse style=filled color="#cd95e1" fillcolor="#f3e7f8"]
+        o1[label="O1 Shared Vocabulary"]  # except 2 4
+    }
+    s1 -> o1  # except 2 4
+
+    subgraph cluster_c3 {
+        shape=tab
+        bgcolor="#79caf2"
+        label="C3 Data Provider 2"
+        labelloc=t
+
+        subgraph stores {
+          node [shape=none image="shapes/datastore.svg"]
+          s3 [label="  S3 Graph"]  # except 2 4
+        }
+
+        subgraph processes {
+          node [shape=none image="shapes/process.svg"]
+          p4 [label="P4 Serialize"]  # except 2 4
+        }
+
+        s3 -> p4  # except 2 4
+    }
+    s3 -> o1  # except 2 4
+    p4 -> p2  # except 2 4
+}

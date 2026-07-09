@@ -7,7 +7,8 @@
     <script class='remove'>
       // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
       var respecConfig = {
-        specStatus: "CG-DRAFT",
+        specStatus: "ED",
+        group: "rdf-star",
         shortName: "rdf-threat-model",
         editors: [{
           name: "Pierre-Antoine Champin"
@@ -23,7 +24,7 @@
   <body>
     <section id="abstract">
       <p>
-        This document describes a threat model for RDF.
+        This document describes a threat model for RDF and SPARQL.
       </p>
     </section>
     <section id="sotd">
@@ -34,22 +35,99 @@
       <p>
         This document describes a threat model for RDF.
         As you can probably tell, it is very much work-in-progress.
-      </p>
+        In this document, we use the visual languaged proposed in [[threat-modeling-guide]].
+        <a href="#diagram1"></a> below present a global view of the threat model,
+        which is explained step-by-step in the following sections.      </p>
 
       <figure id="diagram1">
         <object data="diagrams/diagram1.svg" width="80%">
           See description in the caption.
         </object>
         <figcaption>
-          <details>
-            <summary>Different actors using RDF (<a href="diagrams/diagram1.svg">enlarge</a>)</summary>
-            A producer is producing RDF data that is shared via a channel, and stored in a SPARQL store.
-            A copy of that RDF data is received via the same channel, and inspected by a consumer.
-            Another consumer is using an application that is processing that copy of the RDF data.
-            A third consumer is querying an endpoint exposed by the RDF store.
-            A data architect is producing a schema, which describes both the initial RDF data and its copy.
+          Global view of the threat model. See <a href="#flow-description"></a>.
         </figcaption>
       </figure>
+    </section>
+
+    <section id="flow-description">
+      <h2>Data Flow Description</h2>
+
+      <figure id="diagram2">
+        <object data="diagrams/diagram2.svg" width="80%">
+          See description in the caption.
+        </object>
+        <figcaption>
+          Simple data exchange
+        </figcaption>
+      </figure>
+
+      TODO description of <a href="#diagram2"></a>
+
+      <figure id="diagram3">
+        <object data="diagrams/diagram3.svg" width="80%">
+          See description in the caption.
+        </object>
+        <figcaption>
+          Data integration
+        </figcaption>
+      </figure>
+
+      TODO description of <a href="#diagram3"></a>
+
+      <figure id="diagram4">
+        <object data="diagrams/diagram4.svg" width="80%">
+          See description in the caption.
+        </object>
+        <figcaption>
+          SPARQL-based processing
+        </figcaption>
+      </figure>
+
+      TODO description of <a href="#diagram4"></a>
+
+    </section>
+
+    <section id="dictionary">
+      <h2>Dictionary</h2>
+
+      <dl>
+        <dt>E1 Data Owner</dt>
+        <dd>TODO</dd>
+        <dt>E2 End User</dt>
+        <dd>TODO</dd>
+        <dt>E3 Developer</dt>
+        <dd>TODO</dd>
+        <dt>C1 Data Provider, C3 Data Provider 2</dt>
+        <dd>TODO</dd>
+        <dt>C2 Application</dt>
+        <dd>TODO</dd>
+        <dt>S1 Graph, S2 Graph, S3 Graph</dt>
+        <dd>TODO NB: should this says "dataset" instead? (noting that it could be either an RDF Graph or an RDF Dataset)</dd>
+        <dt>P1 Serialize, P4 Serialize</dt>
+        <dd>TODO</dd>
+        <dt>P2 Parse</dt>
+        <dd>TODO</dd>
+        <dt>P3 Process</dt>
+        <dd>TODO</dd>
+        <dt>P5 Query</dt>
+        <dd>TODO</dd>
+        <dt>P6 Update</dt>
+        <dd>TODO</dd>
+        <dt>P7 Client</dt>
+        <dd>TODO</dd>
+        <dt>P8 Query/Update</dt>
+        <dd>TODO</dd>
+      <dl>
+    </section>
+
+    <section id="stakeholders">
+      <h2>Stakeholders</h2>
+      TODO
+    </section>
+
+    <section id="threats">
+      <h2>Threats</h2>
+      TODO import here threats from various "Security &amp; Privacy Considerations" sections
     </section>
   </body>
 </html>
