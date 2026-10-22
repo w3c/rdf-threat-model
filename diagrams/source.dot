@@ -72,7 +72,7 @@ digraph {
         node[shape=ellipse style=filled color="#cd95e1" fillcolor="#f3e7f8"]
         o1[label="O1 Shared Vocabulary"]  # except 2 4
     }
-    s1 -> o1  # except 2 4
+    s1 -> o1 [dir=none]  # except 2 4
 
     subgraph cluster_c3 {
         shape=tab
@@ -92,6 +92,6 @@ digraph {
 
         s3 -> p4  # except 2 4
     }
-    s3 -> o1  # except 2 4
+    s3 -> o1 [dir=none]  # except 2 4
     p4 -> p2  # except 2 4
 }
