@@ -10,6 +10,7 @@
         specStatus: "ED",
         group: "rdf-star",
         shortName: "rdf-threat-model",
+        github: "https://github.com/w3c/rdf-threat-model/",
         editors: [{
           name: "Pierre-Antoine Champin"
         }]
@@ -35,12 +36,12 @@
       <p>
         This document describes a threat model for RDF.
         As you can probably tell, it is very much work-in-progress.
-        In this document, we use the visual languaged proposed in [[threat-modeling-guide]].
+        In this document, we use the visual languaged proposed in [[[THREAT-MODELING-GUIDE]]] [[THREAT-MODELING-GUIDE]].
         <a href="#diagram1"></a> below present a global view of the threat model,
         which is explained step-by-step in the following sections.      </p>
 
       <figure id="diagram1">
-        <object data="diagrams/diagram1.svg" width="80%">
+        <object data="diagrams/diagram1.svg" style="width: 80%">
           See description in the caption.
         </object>
         <figcaption>
@@ -53,18 +54,29 @@
       <h2>Data Flow Description</h2>
 
       <figure id="diagram2">
-        <object data="diagrams/diagram2.svg" width="80%">
-          See description in the caption.
+        <object data="diagrams/diagram2.svg" style="width: 80%">
+          See description in the caption and below.
         </object>
         <figcaption>
           Simple data exchange
         </figcaption>
       </figure>
 
-      TODO description of <a href="#diagram2"></a>
+      <p>
+      <a href="#diagram2"></a> describes a minimal data flow covering the different RDF specifications.
+      A <a href="#e1-data-owner">data owner</a> owns a <a href="#s1-graph">RDF graph (or dataset)</a>,
+      and publishes it in a <a href="#p1-serialize">serialized</a> form.
+      This serialized form can be inspected directly by a <a href="#e3-developer">developer</a>,
+      or consumed by an <a href="#c2-application">application</a> used by an <a href="#e2-end-user">end user</a>.
+      That application needs to <a href="#p2-parse">parse</a> the serialized form back into a
+      <a href="#s2-graph">graph (or dataset)</a>, which the application then <a href="#p3-process">processes</a>.
+      One possible kind of processing is reasoning under one of the inference regimes described in [[[RDF12-SEMANTICS]]] [[RDF12-SEMANTICS]].
+      </p>
+
+
 
       <figure id="diagram3">
-        <object data="diagrams/diagram3.svg" width="80%">
+        <object data="diagrams/diagram3.svg" style="width: 80%">
           See description in the caption.
         </object>
         <figcaption>
@@ -72,10 +84,16 @@
         </figcaption>
       </figure>
 
-      TODO description of <a href="#diagram3"></a>
+      <p>
+      <a href="#diagram3"></a> extends <a href="#diagram2"></a> by considering that the <a href="#c2-application">application</a>
+      now uses data from two different providers (<a href="#c1-data-provider">C1</a> and <a href="#c3-data-provider-2">C3</a>).
+      The two corresponding graphs (or datasets) (<a href="#s1-graph">S1</a> and <a href="#s3-graph">S3</a>)
+      can be meaningfully integrated into the <a href="#c2-application">application</a>'s <a href="s2-graph">graph (or dataset)</a>,
+      as they make use of the same <a href="o1-shared-vocabulary">shared vocabulary</a>.
+      </p>
 
       <figure id="diagram4">
-        <object data="diagrams/diagram4.svg" width="80%">
+        <object data="diagrams/diagram4.svg" style="width: 80%">
           See description in the caption.
         </object>
         <figcaption>
@@ -91,38 +109,82 @@
       <h2>Dictionary</h2>
 
       <dl>
-        <dt>E1 Data Owner</dt>
+        <dt id="e1-data-owner">E1 Data Owner</dt>
+        <dd>An entity who publishes RDF data. See Section <a href="#stakeholder-data-owner"></a>.</dd>
+        <dt id="e2-end-user">E2 End User</dt>
+        <dd>An entity who uses RDF data via an application. See Section <a href="#stakeholder-end-user"></a>.</dd>
+        <dt id="e3-developer">E3 Developer</dt>
+        <dd>An entity who works with raw RDF data, usually in view of developing, debugging, or auditing an application. See Section <a href="#stakeholder-developer"></a>.</dd>
+        <dt id="e4-data-subject">E4 Data Subject</dt>
+        <dd>An entity who is described by RDF data. See Section <a href="#stakeholder-data-subject"></a>.</dd>
+        <dt><span id="c1-data-provider">C1 Data Provider</span>, <span id="c3-data-provider-2">C3 Data Provider 2</span></dt>
+        <dd>An application or service allowing a <a href="#e1-data-owner">data owner</a> to publish RDF data.
+          This could be for example a simple HTTP server serving static Turtle files, or a dedicated RDF triple store.
+          This model leaves aside the means by which the <a href="#e1-data-owner">data owner</a> authors and curates the <a href="#s1-graph">data</a>.
+          When this matters, the data owner is considered an <a href="#e2-end-user">end user</a> of an <a href="#c2-application">application</a>.
+        </dd>
+        <dt id="c2-application">C2 Application</dt>
+        <dd>An application or service processing RDF data on behalf of an <a href="#e2-end-user">end user</a>.
+          Any application used to inspect, query, visualize, or edit the data, in conformance with the RDF data model [[RDF12-CONCEPTS]], is covered by this model.
+          Simple text editors handling the serialized form of RDF data, without any awareness of the RDF data model, are <em>not</em> covered by this model;
+          we consider them to be entirely trusted, hence transparent for the threat model
+          (e.g. between <a href="#p1-serialize">P1 Serialize</a> and <a href="#e3-developer">E3 Developer</a> in <a href="#diagram2"></a>).
+        </dd>
+        <dt><span id="s1-graph">S1 Graph</span>, <span id="s2-graph">S2 Graph</span>, <span id="s3-graph">S3 Graph</span></dt>
+        <dd>Data that conforms to the RDF data model [[RDF12-CONCEPTS]].
+          While we use the term "graph" for convenience, these components cover both [=RDF graphs=] and [=RDF datasets=].
+        </dd>
+        <dt><span id="p1-serialize">P1 Serialize</span>, <span id="p4-serialize">P4 Serialize</span></dt>
+        <dd>The process of producing a representation of a graph (or dataset) into one of the concrete syntaxes, such as Turtle [[RDF12-TURTLE]]
+          or RDF/XML [[RDF12-XML]].</dd>
+        <dt id="p2-parse">P2 Parse</dt>
+        <dd>The process of producing a graph (or dataset) from a representation in one of the concrete syntaxes, such as Turtle [[RDF12-TURTLE]]
+          or RDF/XML [[RDF12-XML]].</dd>
+        <dt id="p3-process">P3 Process</dt>
+        <dd>This process covers any processing that an <a href="#c2-application">application</a> needs to perform on a graph (or dataset)
+          to fulfill the needs of the <a href="#e2-end-user">end user</a>. This can imply read and/or write operations on the underlying graph data.
+        </dd>
+        <dt id="p5-query">P5 Query</dt>
         <dd>TODO</dd>
-        <dt>E2 End User</dt>
+        <dt id="p6-update">P6 Update</dt>
         <dd>TODO</dd>
-        <dt>E3 Developer</dt>
+        <dt id="p7-client">P7 Client</dt>
         <dd>TODO</dd>
-        <dt>C1 Data Provider, C3 Data Provider 2</dt>
+        <dt id="p8-query-update">P8 Query/Update</dt>
         <dd>TODO</dd>
-        <dt>C2 Application</dt>
-        <dd>TODO</dd>
-        <dt>S1 Graph, S2 Graph, S3 Graph</dt>
-        <dd>TODO NB: should this says "dataset" instead? (noting that it could be either an RDF Graph or an RDF Dataset)</dd>
-        <dt>P1 Serialize, P4 Serialize</dt>
-        <dd>TODO</dd>
-        <dt>P2 Parse</dt>
-        <dd>TODO</dd>
-        <dt>P3 Process</dt>
-        <dd>TODO</dd>
-        <dt>P5 Query</dt>
-        <dd>TODO</dd>
-        <dt>P6 Update</dt>
-        <dd>TODO</dd>
-        <dt>P7 Client</dt>
-        <dd>TODO</dd>
-        <dt>P8 Query/Update</dt>
-        <dd>TODO</dd>
-      <dl>
+      </dl>
     </section>
 
     <section id="stakeholders">
       <h2>Stakeholders</h2>
-      TODO
+
+      <section id="stakeholder-data-owner">
+        <h2>E1 Data Owner</h2>
+        <p>A data owners is an entity who publishes RDF data that they produce and/or curate.
+          Their goal is to ensure that <a href="#e2-end-user">end users</a> benefit from accessing the data.
+        </p>
+      </section>
+
+      <section id="stakeholder-end-user">
+        <h2>E2 End User</h2>
+        <p>An end user is an entity who uses RDF data via an application.
+          Their goal is to get accurate and up-to-date data to perform the task at hand.
+        </p>
+      </section>
+
+      <section id="stakeholder-developer">
+        <h2>E3 Developer</h2>
+        <p>A developer is an entity who works with raw RDF data, usually in view of developing, debugging, or auditing an application.
+          Their goal is to get, by inspecting the data, a better understanding of their structure.
+        </p>
+      </section>
+
+      <section id="stakeholder-data-subject">
+        <h2>E4 Data Subject</h2>
+        <p>A data subject is an entity who is described by RDF data.
+          Their goal is to have their privacy protected: their personal data released to other entities should be restricted to the minimal necessary amount.
+        </p>
+      </section>
     </section>
 
     <section id="threats">

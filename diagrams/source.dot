@@ -55,9 +55,11 @@ digraph {
         e1[label="E1 Data Owner"]
         e2[label="E2 End User"]
         e3[label="E3 Developer"]   # except 3
+        e4[label="E4 Data Subject"]
     }
     p3 -> e2 [dir=both]
     p1 -> e3             # except 3 4
+    s1 -> e4 [style=invis]  # except 1 3
 
     subgraph processes {
       node [shape=none image="shapes/process.svg"]
@@ -72,7 +74,7 @@ digraph {
         node[shape=ellipse style=filled color="#cd95e1" fillcolor="#f3e7f8"]
         o1[label="O1 Shared Vocabulary"]  # except 2 4
     }
-    s1 -> o1  # except 2 4
+    s1 -> o1 [dir=none]  # except 2 4
 
     subgraph cluster_c3 {
         shape=tab
@@ -92,6 +94,7 @@ digraph {
 
         s3 -> p4  # except 2 4
     }
-    s3 -> o1  # except 2 4
+    s3 -> o1 [dir=none]  # except 2 4
+    s3 -> e4 [style=invis]  # except 2 4
     p4 -> p2  # except 2 4
 }
