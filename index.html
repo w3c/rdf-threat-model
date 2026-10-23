@@ -110,11 +110,13 @@
 
       <dl>
         <dt id="e1-data-owner">E1 Data Owner</dt>
-        <dd>An entity who publishes RDF data. See Section <a href="#stakeholder_data_owner"></a>.</dd>
+        <dd>An entity who publishes RDF data. See Section <a href="#stakeholder-data-owner"></a>.</dd>
         <dt id="e2-end-user">E2 End User</dt>
-        <dd>An entity who uses RDF data via an application. See Section <a href="#stakeholder_end_user"></a>.</dd>
+        <dd>An entity who uses RDF data via an application. See Section <a href="#stakeholder-end-user"></a>.</dd>
         <dt id="e3-developer">E3 Developer</dt>
-        <dd>An entity who works with raw RDF data, usually in view of developing, debugging, or auditing an application. See Section <a href="#stakeholder_developer"></a>.</dd>
+        <dd>An entity who works with raw RDF data, usually in view of developing, debugging, or auditing an application. See Section <a href="#stakeholder-developer"></a>.</dd>
+        <dt id="e4-data-subject">E4 Data Subject</dt>
+        <dd>An entity who is described by RDF data. See Section <a href="#stakeholder-data-subject"></a>.</dd>
         <dt><span id="c1-data-provider">C1 Data Provider</span>, <span id="c3-data-provider-2">C3 Data Provider 2</span></dt>
         <dd>An application or service allowing a <a href="#e1-data-owner">data owner</a> to publish RDF data.
           This could be for example a simple HTTP server serving static Turtle files, or a dedicated RDF triple store.
@@ -156,19 +158,32 @@
     <section id="stakeholders">
       <h2>Stakeholders</h2>
 
-      <section id="stakeholder_data_owner">
+      <section id="stakeholder-data-owner">
         <h2>E1 Data Owner</h2>
-        TODO
+        <p>A data owners is an entity who publishes RDF data that they produce and/or curate.
+          Their goal is to ensure that <a href="#e2-end-user">end users</a> benefit from accessing the data.
+        </p>
       </section>
 
-      <section id="stakeholder_end_user">
+      <section id="stakeholder-end-user">
         <h2>E2 End User</h2>
-        TODO
+        <p>An end user is an entity who uses RDF data via an application.
+          Their goal is to get accurate and up-to-date data to perform the task at hand.
+        </p>
       </section>
 
-      <section id="stakeholder_developer">
+      <section id="stakeholder-developer">
         <h2>E3 Developer</h2>
-        TODO
+        <p>A developer is an entity who works with raw RDF data, usually in view of developing, debugging, or auditing an application.
+          Their goal is to get, by inspecting the data, a better understanding of their structure.
+        </p>
+      </section>
+
+      <section id="stakeholder-data-subject">
+        <h2>E4 Data Subject</h2>
+        <p>A data subject is an entity who is described by RDF data.
+          Their goal is to have their privacy protected: their personal data released to other entities should be restricted to the minimal necessary amount.
+        </p>
       </section>
     </section>
 
